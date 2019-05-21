@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+   <head>
+     <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component/dist/aframe-animation-component.min.js"></script>
+    <!--click하면 plane위치 변경-->
+    <script src="aframe.propagate.js"></script>
+
+     <title>caroutside</title>
+   </head>
+
+   <body>
+    <a-scene main-ui>
+     <!--  <a-entity id="main-camera" camera look-controls
+                 animation="property: position; dir: normal; dur: 1000; easing: easeInOutQuad; loop: false; from: 0 0 0; to: 0 0 -8; startEvents: viewDetail;"> -->
+       <a-entity cursor="rayOrigin: mouse;" raycaster="objects: .clickable">
+       </a-entity>
+       </a-entity>
+
+       <a-assets>
+         <img id="start-bg" src="background.png">
+         <img id="button" src="button.png">
+         <img id="raygear" src="raygear.jpg">
+
+        <!--중복된 열 묶기-->
+        <a-mixin id="overlay-fade-in" animation="property: opacity; dir: normal; dur: 500; easing: easeOutQuad; loop: false; from:0; to: .75; startEvents: clickDown;"></a-mixin>
+        <a-asset-item id="car" src="ray.glb">
+       </a-assets>
+
+       <!--vr 배경 띄우기-->
+       <a-sphere id="main-bg" radius="100" position="0 0 0" rotation="0 -90 0" src="#start-bg" material="side: double;"></a-sphere>
+
+      <!--a-plane은 hover 효과를 위해 생성
+          easeOutElastic은 scale조절을 bounce한 모션을 주면서-->
+       <a-plane propagate="events:clickDown" id="center-tile" class="clickable" position="0 1 -8" width="4" height="3" opacity="0"
+                animation="property: scale; dir: normal; dur: 1750; easing: easeOutElastic; loop: false; from: 1 1 1; to: 1.5 1.5 1.5; startEvents: click;">
+
+       <a-image id="button" class="tile" position="0 -2 9"        src="#button" width="1" height="1" opacity="0"
+                  animation="property: opacity; dir: normal; dur: 1500; easing: easeOutQuad; loop: false; from:0; to: 1; delay: 1250;">
+       </a-image>
+
+          <!--click했을 때 overlay되는 효과
+              button클릭하면 plane생성-->
+             <a-plane id="center-tile-overlay" width="15" height="9"
+                      position="0 0 3" color="#000" opacity="0"
+                      mixin="overlay-fade-in">
+             </a-plane>
+
+             <a-image id="center-tile=raygear" class="tile" position="0 0 3" src="#raygear" width="14.5" height="8.5" opacity="0"
+                      mixin="overlay-fade-in"></a-image>
+             <!--<a-text id="center-tile-text" position="3.5 -3.8 .02" align="center" line-height="64" opacity="0" 
+                    value="7-inch navigation makes driving convenient." width="8" height="5"
+                   mixin="overlay-fade-in"></a-text>-->
+          
+          <!--overlay안에 버튼 생성-
+               <a-plane id="center-tile-cta" width="2" height=".5"
+                        position="0 -.75 .01" color="#000" opacity="0"  
+                         mixin="overlay-fade-in">
+               <a-text id="center-tile-cta-text" position="0 0 .02" 
+                       align="center" line-height="64" opacity="0" 
+                       value="View Ray"
+                       mixin="overlay-fade-in">
+               </a-text>   
+              </a-plane>-->
+      </a-plane>
+
+      <a-gltf-model src="#car"></a-gltf-model>
+     </a-scene>
+  </body>
+</html>

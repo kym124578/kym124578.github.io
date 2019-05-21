@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+
+    <title>WebVR</title>
+  </head>
+  <body>
+   <a-scene>
+          <a-entity id="main-camera" camera look-controls
+                 animation="property: position; dir: normal; dur: 1000; easing: easeInOutQuad; loop: false; from: 0 0 0; to: 0 0 -8; startEvents: viewDetail;">
+         <a-entity cursor="rayOrigin: mouse;" raycaster="objects: .clickable">
+         </a-entity>
+     <a-assets>
+       <a-asset-item id="car" src="edit1.obj"></a-asset-item>
+  </a-assets>
+
+  <!-- Using the asset management system. -->
+  <a-obj-model src="#car" position="4 4 4"></a-obj-model>
+
+   </a-scene>
+  </body>
+</html>

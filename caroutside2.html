@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+     <head>
+     	<title>caroutside</title>
+     	<style>
+     	     body { margin: 0; }
+     	     canvas { width: 100%; height: 100% }
+     	</style>
+     </head>
+     <body>
+     	<script src="build/three.js"></script>
+     	<script src="examples/js/loaders/OBJLoader.js"></script>
+     	<script src="examples/js/controls/OrbitControls/js"></script>
+     	<script>
+     		// 장면
+     		var scene = new THREE.Scene();
+     		// 주변광 (조명기능)
+     		var ambientLight = new THREE.AmbientLight( 0xffffff );
+     		    scene.add( ambientLight );
+     		// 포인트광 (특정 방향으로 빛을 비추는 기능)
+     		var pointLight = new THREE.pointLight( 0xffffff, 1 );
+     		    pointLight.position.set( 1, 1, 1 );
+     		    scene.add( pointLight );
+     		 // 카메라
+     		 var camera = new THREE.PerspectiveCamera( 75, widow.innerWidth / window. innerHeight, 1, 500 );
+     		     camera.position.y = 0.25;
+     		// 렌더러 (2차원, 3차원 장면을 보여주는 기능)
+     		 var renderer = new THREE.WebGLRenderer();
+     		     renderer.setSize( window.innerWidth, window.innerHeight);
+     		     renderer.setClearColor(0xffffff);
+     		     document.body.appendChild( renderer.domElement );
+     		 // control 
+     		 var controls = new THREE.OrbitControls( camera );
+     		     controls.update();
+
+             //OBJLoader 기능을 불러와 loader 변수에 담기
+             var loader = new THREE.OBJLoader;
+             //MeshBasicMaterial 기능불러와 material 변수에
+             var material = new THREE.MeshStandardMaterial;
+
+             loader.load("edit1.obj", function (object) {
+             	object.traverse(function(body) {
+             		if (body instanceof THREE.Mesh) {
+             			body.material = material;
+             			scene.add(body);
+             		}
+             	});
+             });
+     		//실시간 렌더링
+     		animate();
+     		function animate() {
+     			requestAnimationFrame (animate);
+     			controls.update();
+     			renderer.render( scene, camera );
+     		}
+     	</script>
+     </body>
+</html>
