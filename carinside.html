@@ -47,8 +47,7 @@
   </head>
   <body>
     <a-scene main-ui>
-      <a-entity vive-controls="hand: left"></a-entity>
-      <a-entity vive-controls="hand: right"></a-entity>
+     
       <a-entity id="main-camera" camera look-controls
                  animation="property: position; dir: normal; dur: 1000; easing: easeInOutQuad; loop: false; from: 0 0 0; to: 0 0 -8; startEvents: viewDetail;">
          <a-entity cursor="rayOrigin: mouse;" raycaster="objects: .clickable">
@@ -102,8 +101,10 @@
                </a-text>   
               </a-plane>-->
       </a-plane>
-
+      <a-entity hand-controls="left"></a-entity>
+      <a-entity hand-controls="right"></a-entity>
     </a-scene>
-       
+       <a-entity vive-controls="hand: left"></a-entity>
+      <a-entity vive-controls="hand: right"></a-entity>
   </body>
 </html>
